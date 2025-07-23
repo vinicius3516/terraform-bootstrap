@@ -10,6 +10,9 @@ terraform {
 
 # Locals
 locals {
+  unique_id = random_string.unique_id.result
+  bucket_prefix = lower("tf-state-${var.project_id}-${var.environment}-${local.unique_id}")
+  dynamondb_table_prefix = lower("tf-lock-${var.project_id}-${var.environment}-${local.unique_id}")
   tags = {
     Environment = var.environment
     ManagedBy   = "Terraform"
@@ -18,7 +21,7 @@ locals {
 
 # Create a new Bucket
 resource "aws_s3_bucket" "bucket" {
-  bucket = "tf-state-${var.environment}"
+  bucket = local.bucket_prefix
   tags   = local.tags
 
   lifecycle {
@@ -64,7 +67,7 @@ resource "aws_s3_bucket_versioning" "versioning" {
 
 # Create an Dynamodb Table
 resource "aws_dynamodb_table" "tf_lock" {
-  name         = "terraform-locks-${var.environment}"
+  name         = local.dynamondb_table_prefix
   hash_key     = "LockID"
   billing_mode = "PAY_PER_REQUEST"
 

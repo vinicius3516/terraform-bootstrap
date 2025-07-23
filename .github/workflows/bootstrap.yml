@@ -17,6 +17,9 @@ on:
             AWS_SECRET_ACCESS_KEY:
                 description: 'AWS Secret Access Key'
                 required: true
+            PROJECT_ID:
+                description: 'Project ID'
+                required: true
 
 jobs:
     bootstrap:
@@ -52,7 +55,11 @@ jobs:
               run: terraform fmt -check
 
             - name: Plan Terraform
-              run: terraform plan -out=tfplan
+              run: |
+                terraform plan -out=tfplan \
+                  -var="environment=${{ github.event.inputs.environment }}" \
+                  -var="region=${{ github.event.inputs.region }} \
+                  -var="project_id=${{ secrets.PROJECT_ID }}"
 
             - name: Terraform Apply
               run: terraform apply -auto-approve tfplan
