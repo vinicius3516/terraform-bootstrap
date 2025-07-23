@@ -10,6 +10,10 @@ on:
                 description: 'AWS region to use'
                 required: true
                 type: string
+            github_run_number:
+                description: 'GitHub Run Number to use for naming resources'
+                required: true
+                type: string
         secrets:
             AWS_ACCESS_KEY_ID:
                 description: 'AWS Access Key ID'
@@ -59,7 +63,7 @@ jobs:
                 terraform plan -out=tfplan \
                   -var="environment=${{ github.event.inputs.environment }}" \
                   -var="aws_region=${{ github.event.inputs.region }}" \
-                  -var="account_id=${{ secrets.ACCOUNT_ID }}"
+                  -var="unique_id=${{ github.event.inputs.github_run_number }}"
 
             - name: Terraform Apply
               run: terraform apply -auto-approve tfplan

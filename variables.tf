@@ -6,7 +6,7 @@ variable "environment" {
   description = "The environment for which the resources are being created (dev, staging, prod)"
   type        = string
 }
-variable "account_id" {
-  description = "The account id for use in resource naming"
+variable "unique_id" {
+  description = "The unique id for use in resource naming"
   type        = string
 }
