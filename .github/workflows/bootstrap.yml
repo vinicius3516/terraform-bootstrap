@@ -58,7 +58,7 @@ jobs:
               run: |
                 terraform plan -out=tfplan \
                   -var="environment=${{ github.event.inputs.environment }}" \
-                  -var="region=${{ github.event.inputs.region }}" \
+                  -var="aws_region=${{ github.event.inputs.region }}" \
                   -var="account_id=${{ secrets.ACCOUNT_ID }}"
 
             - name: Terraform Apply
