@@ -58,9 +58,9 @@ jobs:
             - name: Plan Terraform
               run: |
                 terraform plan -out=tfplan \
-                  -var="environment=${{ github.event.inputs.environment }}" \
-                  -var="aws_region=${{ github.event.inputs.region }}" \
-                  -var="unique_id=${{ github.event.inputs.github_run_number }}"
+                  -var "environment=${{ inputs.environment }}" \
+                  -var "aws_region=${{ inputs.region }}" \
+                  -var "unique_id=${{ inputs.github_run_number }}"
 
             - name: Terraform Apply
               run: terraform apply -auto-approve tfplan
