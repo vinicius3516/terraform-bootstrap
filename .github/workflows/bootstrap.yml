@@ -28,6 +28,9 @@ jobs:
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
+              with:
+                repository: vinicius3516/terraform-bootstrap
+                ref: main
 
             - name: Set Up AWS Credentials
               uses: aws-actions/configure-aws-credentials@v4.1.0
