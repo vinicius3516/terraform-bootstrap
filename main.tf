@@ -8,10 +8,15 @@ terraform {
   backend "local" {}
 }
 
+# Random ID
+resource "random_id" "unique" {
+  byte_length = 4
+}
+
 # Locals
 locals {
-  unique_id = random_string.unique_id.result
-  bucket_prefix = lower("tf-state-${var.account_id}-${var.environment}-${local.unique_id}")
+  unique_id              = random_id.unique.hex
+  bucket_prefix          = lower("tf-state-${var.account_id}-${var.environment}-${local.unique_id}")
   dynamondb_table_prefix = lower("tf-lock-${var.account_id}-${var.environment}-${local.unique_id}")
   tags = {
     Environment = var.environment

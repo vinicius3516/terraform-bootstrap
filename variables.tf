@@ -8,5 +8,5 @@ variable "environment" {
 }
 variable "account_id" {
   description = "The account id for use in resource naming"
-  type = string
+  type        = string
 }
