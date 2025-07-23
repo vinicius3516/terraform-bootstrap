@@ -11,8 +11,8 @@ terraform {
 # Locals
 locals {
   unique_id = random_string.unique_id.result
-  bucket_prefix = lower("tf-state-${var.project_id}-${var.environment}-${local.unique_id}")
-  dynamondb_table_prefix = lower("tf-lock-${var.project_id}-${var.environment}-${local.unique_id}")
+  bucket_prefix = lower("tf-state-${var.account_id}-${var.environment}-${local.unique_id}")
+  dynamondb_table_prefix = lower("tf-lock-${var.account_id}-${var.environment}-${local.unique_id}")
   tags = {
     Environment = var.environment
     ManagedBy   = "Terraform"

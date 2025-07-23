@@ -17,8 +17,8 @@ on:
             AWS_SECRET_ACCESS_KEY:
                 description: 'AWS Secret Access Key'
                 required: true
-            PROJECT_ID:
-                description: 'Project ID'
+            ACCOUNT_ID:
+                description: 'Account ID'
                 required: true
 
 jobs:
@@ -59,7 +59,7 @@ jobs:
                 terraform plan -out=tfplan \
                   -var="environment=${{ github.event.inputs.environment }}" \
                   -var="region=${{ github.event.inputs.region }} \
-                  -var="project_id=${{ secrets.PROJECT_ID }}"
+                  -var="account_id=${{ secrets.ACCOUNT_ID }}"
 
             - name: Terraform Apply
               run: terraform apply -auto-approve tfplan
