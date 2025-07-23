@@ -21,9 +21,6 @@ on:
             AWS_SECRET_ACCESS_KEY:
                 description: 'AWS Secret Access Key'
                 required: true
-            ACCOUNT_ID:
-                description: 'Account ID'
-                required: true
 
 jobs:
     bootstrap:
