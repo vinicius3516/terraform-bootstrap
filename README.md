@@ -139,3 +139,9 @@ O bucket provisionado pelo `terraform-bootstrap` é configurado com diversas pro
 | 👤 Ownership Controls        | O bucket sempre será dono dos objetos enviados, mesmo via STS ou terceiros |
 | 📜 Versionamento ativado    | Cada alteração no state é versionada automaticamente                       |
 | 🏷️ Tags padronizadas        | Tags como `Environment` e `ManagedBy` são aplicadas de forma consistente   |
+
+# 📸 Resultado Esperado
+
+Após aplicar o Terraform, você deverá ver o bucket provisionado no console da AWS S3 com o nome esperado (por exemplo, `tf-state-staging-<unique_id>`):
+
+![Resultado esperado no S3](./result.png)
