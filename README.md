@@ -9,7 +9,7 @@ Este projeto define a infraestrutura base necessária para usar **Terraform com 
 
 ---
 
-## 📌 Objetivo
+> ## Objetivo
 
 Fornecer uma base reutilizável para projetos Terraform que necessitam de backend remoto na AWS. Com este repositório, você pode:
 
@@ -19,7 +19,7 @@ Fornecer uma base reutilizável para projetos Terraform que necessitam de backen
 
 ---
 
-## 📦 Recurso Provisionado
+> ## Recurso Provisionado
 
 | Tipo            | Nome padrão                              | Observações importantes                                                  |
 |-----------------|-------------------------------------------|--------------------------------------------------------------------------|
@@ -27,7 +27,7 @@ Fornecer uma base reutilizável para projetos Terraform que necessitam de backen
 
 ---
 
-## 📁 Estrutura do Repositório
+> ## Estrutura do Repositório
 
 ```bash
 terraform-bootstrap/
@@ -41,15 +41,15 @@ terraform-bootstrap/
 └── README.md             # Este arquivo
 ```
 
-## 🚀 Como Usar
+> ## Como Usar
 
-### ✅ Requisitos
+### Requisitos
 
 - Conta AWS com credenciais válidas (Access Key + Secret)  
 - Terraform CLI >= 1.11.0  
 - Permissões para rodar workflows no GitHub  
 
-### 🧪 Uso Local (Manual)
+### Uso Local (Manual)
 
 ```bash
 terraform init
@@ -57,7 +57,7 @@ terraform plan -var="environment=dev"
 terraform apply -auto-approve -var="environment=dev"
 ```
 
-# 🔁 Uso via GitHub Actions `workflow_call`
+> ## Uso via GitHub Actions `workflow_call`
 
 Você pode reutilizar este pipeline de bootstrap em qualquer outro projeto Terraform. Crie um workflow como abaixo no projeto consumidor:
 
@@ -86,10 +86,10 @@ jobs:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 ```
-> 💡 Importante:
+> Importante:
 Substitua `vinicius3516` pelo nome correto da organização ou conta GitHub, se você tiver feito um fork do projeto.
 
-# ☁️ Como configurar o backend nos projetos consumidores
+> ## Como configurar o backend nos projetos consumidores
 
 Após provisionar o bucket S3 com este projeto, os demais projetos Terraform devem configurar o backend remoto da seguinte forma:
 
@@ -106,17 +106,17 @@ terraform {
   }
 }
 ```
-> ✅ Importante:
+### Importante:
 O parâmetro `use_lockfile = true` ativa o mecanismo de locking automático do Terraform, substituindo a necessidade de uma tabela DynamoDB.
 
-# ⚙️ Input disponível no `workflow_call`
+> ## Input disponível no `workflow_call`
 
 | Nome        | Tipo    | Obrigatório | Descrição                                      |
 |-------------|---------|-------------|------------------------------------------------|
 | environment | string  | ✅          | Nome do ambiente (dev, staging, prod)          |
 |      |   |         |      |
 
-# 🔐 Secrets necessárias
+> ## Secrets necessárias
 
 | Nome                  | Descrição                                           |
 |-----------------------|-----------------------------------------------------|
@@ -124,23 +124,23 @@ O parâmetro `use_lockfile = true` ativa o mecanismo de locking automático do T
 | AWS_SECRET_ACCESS_KEY | Secret key correspondente                          |
 | AWS_REGION            | Região na Aws                                      |
 
-> 💡 **Importante:**  
+> **Importante:**  
 > Você deve configurar esses secrets no repositório que chama o bootstrap (não no bootstrap em si):  
 > Vá para **Settings > Secrets and variables > Actions** e adicione os tres secrets lá.
 
-# 🛡️ Boas práticas implementadas no backend S3
+> ## Boas práticas implementadas no backend S3
 
 O bucket provisionado pelo `terraform-bootstrap` é configurado com diversas proteções e práticas recomendadas pela AWS:
 
 | Recurso                     | Descrição                                                                 |
 |-----------------------------|---------------------------------------------------------------------------|
-| 🔐 Criptografia AES256      | Todos os arquivos no bucket são criptografados automaticamente             |
-| 🚫 Bloqueio de acesso público | Nenhuma ACL ou política pode tornar o bucket ou objetos públicos           |
-| 👤 Ownership Controls        | O bucket sempre será dono dos objetos enviados, mesmo via STS ou terceiros |
-| 📜 Versionamento ativado    | Cada alteração no state é versionada automaticamente                       |
-| 🏷️ Tags padronizadas        | Tags como `Environment` e `ManagedBy` são aplicadas de forma consistente   |
+| Criptografia AES256      | Todos os arquivos no bucket são criptografados automaticamente             |
+| Bloqueio de acesso público | Nenhuma ACL ou política pode tornar o bucket ou objetos públicos           |
+| Ownership Controls        | O bucket sempre será dono dos objetos enviados, mesmo via STS ou terceiros |
+| Versionamento ativado    | Cada alteração no state é versionada automaticamente                       |
+| Tags padronizadas        | Tags como `Environment` e `ManagedBy` são aplicadas de forma consistente   |
 
-# 📸 Resultado Esperado
+> ## Resultado Esperado
 
 Após aplicar o Terraform, você deverá ver o bucket provisionado no console da AWS S3 com o nome esperado (por exemplo, `tf-state-staging-<unique_id>`):
 
